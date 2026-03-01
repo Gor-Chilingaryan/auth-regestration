@@ -1,5 +1,5 @@
 {
-  "name": "fafa",
+  "name": "auth-backend",
   "version": "1.0.0",
   "description": "Бэкенд на Node.js (Express + MongoDB) с авторизацией по JWT.",
   "main": "index.js",

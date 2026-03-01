@@ -1,8 +1,8 @@
 const authService = require('../services/authService');
 
-/**
- * Регистрация пользователя
- */
+
+ // Регистрация пользователя
+
 async function register(req, res) {
   try {
     const { email, password } = req.body;
@@ -17,18 +17,21 @@ async function register(req, res) {
     });
   } catch (err) {
     if (err.code === 'EMAIL_EXISTS') {
-      return res.status(400).json({ message: err.message });
+      return res.status(409).json({ message: err.message });
     }
     if (err.name === 'ValidationError') {
       return res.status(400).json({ message: err.message });
+    }
+    if (err.code === 11000) {
+      return res.status(409).json({ message: 'Пользователь с таким email уже есть' });
     }
     res.status(500).json({ message: 'Ошибка сервера', details: err.message });
   }
 }
 
-/**
- * Вход (логин)
- */
+
+// Вход (логин)
+
 async function login(req, res) {
   try {
     const { email, password } = req.body;
@@ -45,9 +48,9 @@ async function login(req, res) {
   }
 }
 
-/**
- * Текущий пользователь (требует авторизации)
- */
+
+ // Текущий пользователь (требует авторизации)
+ 
 function getMe(req, res) {
   res.json({ user: req.user });
 }
