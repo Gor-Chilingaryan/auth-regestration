@@ -4,7 +4,7 @@ const { jwtSecret } = require('../config/settings');
 
 const TOKEN_EXPIRES = '7d';
 
-  // Создать JWT для пользователя
+// Создать JWT для пользователя
 
 function createToken(userId) {
   return jwt.sign({ userId }, jwtSecret, { expiresIn: TOKEN_EXPIRES });
@@ -13,7 +13,9 @@ function createToken(userId) {
 //   Регистрация: создать пользователя и вернуть данные + токен
 
 async function registerUser(email, password) {
-  const existing = await User.findOne({ email: email?.toLowerCase?.() || email });
+  const existing = await User.findOne({
+    email: email?.toLowerCase?.() || email
+  });
 
   if (existing) {
     const err = new Error('Пользователь с таким email уже есть');
@@ -30,7 +32,7 @@ async function registerUser(email, password) {
   };
 }
 
- // Вход: проверить email/пароль и вернуть данные + токен
+// Вход: проверить email/пароль и вернуть данные + токен
 
 async function loginUser(email, password) {
   const user = await User.findOne({ email: email?.toLowerCase?.() || email });
